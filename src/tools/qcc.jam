@@ -48,6 +48,11 @@ generators.register-c-compiler qcc.compile.c   : C   : OBJ : <toolset>qcc ;
 generators.register-c-compiler qcc.compile.asm : ASM : OBJ : <toolset>qcc ;
 
 
+# Select stdlib
+
+toolset.flags qcc OPTIONS <stdlib>gnu <stdlib>gnu11 : -Y_gpp ;
+toolset.flags qcc OPTIONS <stdlib>libc++ : -Y_cxx ;
+
 # Select QCC target platform
 
 # Configuration checks don't use explicit value of QCC-TARGET-PLATFORM
