@@ -50,7 +50,7 @@ generators.register-c-compiler qcc.compile.asm : ASM : OBJ : <toolset>qcc ;
 
 # Select stdlib
 
-toolset.flags qcc QCC-STDLIB-VAL <stdlib> : ;
+toolset.flags qcc QCC-STDLIB-VAL <stdlib> ;
 toolset.flags qcc QCC-STDLIB <stdlib>native : native ; # Local default
 toolset.flags qcc QCC-STDLIB <stdlib>gnu <stdlib>gnu11 : -Y_gpp ;
 toolset.flags qcc QCC-STDLIB <stdlib>libc++ : -Y_cxx ; # LLVM (QNX 7.0.0)
