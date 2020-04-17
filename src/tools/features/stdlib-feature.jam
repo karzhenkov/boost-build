@@ -8,7 +8,7 @@ import feature ;
 #| tag::doc[]
 
 [[bbv2.builtin.features.stdlib]]`stdlib`::
-*Allowed values*: `native`, `gnu`, `gnu11`, `libc++`, `sun-stlport`, `apache`.
+*Allowed values*: `native`, `gnu`, `gnu11`, `libc++`, `sun-stlport`, `apache`, `dinkum`.
 +
 Specifies C++ standard library to link to and in some cases the library ABI to
 use:
@@ -21,9 +21,10 @@ use:
   provided with the Solaris Studio compiler.
 `apache`::: Use the Apache stdcxx version 4 C++ standard library provided with
   the Solaris Studio compiler.
+`dinkum`::: Use the Dinkum C++ library
 
 |# # end::doc[]
 
 feature.feature stdlib
-    : native gnu gnu11 libc++ sun-stlport apache
+    : native gnu gnu11 libc++ sun-stlport apache dinkum
     : propagated composite ;

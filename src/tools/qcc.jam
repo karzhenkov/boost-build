@@ -51,9 +51,9 @@ generators.register-c-compiler qcc.compile.asm : ASM : OBJ : <toolset>qcc ;
 # Select stdlib
 
 toolset.flags qcc QCC-STDLIB-VAL <stdlib> ;
-toolset.flags qcc QCC-STDLIB <stdlib>native : native ; # Local default
+toolset.flags qcc QCC-STDLIB <stdlib>dinkum : -Y_cpp ; # Dinkum in QNX 6.5.0
 toolset.flags qcc QCC-STDLIB <stdlib>gnu <stdlib>gnu11 : -Y_gpp ;
-toolset.flags qcc QCC-STDLIB <stdlib>libc++ : -Y_cxx ; # LLVM (QNX 7.0.0)
+toolset.flags qcc QCC-STDLIB <stdlib>libc++ : -Y_cxx ; # LLVM on QNX 7.0.0
 
 # Select QCC target platform
 
@@ -93,19 +93,18 @@ local rule check-target-platform
         errors.user-error "Unsupported achitecture / address model" ;
     }
 
-    if [ on $(1) return $(QCC-STDLIB-VAL) ]
+    local stdlib-value = [ on $(1) return $(QCC-STDLIB-VAL) ] ;
+
+    if $(stdlib-value) && $(stdlib-value) != native
     {
         local lib-opt = [ on $(1) return $(QCC-STDLIB) ] ;
 
         if ! $(lib-opt)
         {
-            errors.user-error "Unknown stdlib" ;
+            errors.user-error "Unknown stdlib:" $(stdlib-value) ;
         }
 
-        if $(lib-opt) != native
-        {
-            opt += $(lib-opt) ;
-        }
+        opt += $(lib-opt) ;
     }
 
     QCC-TARGET-PLATFORM on $(1) = $(opt) ;
